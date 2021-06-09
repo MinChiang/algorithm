@@ -65,6 +65,11 @@ public class ListNode {
         return root;
     }
 
+    /**
+     * 打印列表
+     *
+     * @return 返回字符串
+     */
     public String toListString() {
         StringBuilder sb = new StringBuilder();
         sb.append(this.val);

@@ -1,21 +1,11 @@
+import common.TreeNode;
+
 /**
  * @author MinChiang
  * @version 1.0.0
  * @date 2021-06-09 11:17
  */
 public class ErChaSouSuoShuDeHouXuBianLiXuLieLcofOffer33 {
-
-    class TreeNode {
-
-        TreeNode left;
-        TreeNode right;
-        int val;
-
-        public TreeNode(int val) {
-            this.val = val;
-        }
-
-    }
 
     public boolean verifyPostorder(int[] postorder) {
         // 二叉树后续遍历 左 | 右 | 根

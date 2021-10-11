@@ -39,4 +39,4 @@ logs/
 node_modules/
 dist/
 test/unit/coverage/
-submodule
+src/main/java/com/algorithm/leetcode/editor/cn/doc/

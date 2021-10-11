@@ -1,3 +1,5 @@
+package com.algorithm.leetcode.editor.cn;
+
 /**
  * @author MinChiang
  * @version 1.0.0

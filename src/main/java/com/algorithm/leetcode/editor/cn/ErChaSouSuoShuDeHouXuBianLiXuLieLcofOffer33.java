@@ -1,4 +1,6 @@
-import common.TreeNode;
+package com.algorithm.leetcode.editor.cn;
+
+import com.algorithm.leetcode.common.TreeNode;
 
 /**
  * @author MinChiang

@@ -2,10 +2,8 @@ package com.algorithm.leetcode.common;
 
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.stream.IntStream;
 
 /**
  * @author MinChiang
@@ -29,6 +27,17 @@ public class TreeNode {
     }
 
     public TreeNode() {
+    }
+
+    /**
+     * 创建树
+     *
+     * @param startInclusive 开始元素
+     * @param endInclusive   结束元素
+     * @return 树头节点
+     */
+    public static TreeNode create(int startInclusive, int endInclusive) {
+        return create(IntStream.rangeClosed(startInclusive, endInclusive).iterator());
     }
 
     /**
@@ -70,15 +79,18 @@ public class TreeNode {
     /**
      * 创建树
      *
-     * @param list 列表
+     * @param iterator 迭代器
      * @return 树头节点
      */
-    public static TreeNode create(List<Integer> list) {
-        if (list == null || list.isEmpty()) {
+    public static TreeNode create(Iterator<Integer> iterator) {
+        if (iterator == null) {
             return null;
         }
-        Iterator<Integer> iterator = list.iterator();
-        TreeNode head = new TreeNode(iterator.next());
+        Integer first = iterator.next();
+        if (first == null) {
+            return null;
+        }
+        TreeNode head = new TreeNode(first);
         Integer tmp;
         Queue<TreeNode> queue = new LinkedList<>();
         queue.offer(head);
@@ -102,6 +114,19 @@ public class TreeNode {
             }
         }
         return head;
+    }
+
+    /**
+     * 创建树
+     *
+     * @param iterable 迭代接口
+     * @return 树头节点
+     */
+    public static TreeNode create(Iterable<Integer> iterable) {
+        if (iterable == null) {
+            return null;
+        }
+        return create(iterable.iterator());
     }
 
     /**
@@ -131,43 +156,9 @@ public class TreeNode {
         return sb.toString();
     }
 
-    //-1
-    // |-2
-    // | |-4
-    // | | |-8
-    // | |
-    // | |-5
-    // |
-    // |-3
-    //   |-6
-    //   |
-    //   |-7
-    public String toTreeString() {
-        StringBuilder sb = new StringBuilder();
-        Queue<TreeNode> queue = new LinkedList<>();
-        queue.add(this);
-        int count = 0;
-        while (!queue.isEmpty()) {
-            TreeNode current = queue.poll();
-            sb.append('-');
-            sb.append(current.val);
-            int size = queue.size();
-            for (int i = 0; i < size; i++) {
-
-            }
-        }
-        return null;
-    }
-
     @Override
     public String toString() {
         return String.valueOf(val);
-    }
-
-    public static void main(String[] args) {
-//        TreeNode treeNode = TreeNode.create(new Integer[]{5, 2, 8, null, null, 3, 4, null, null, 1});
-        TreeNode treeNode = TreeNode.create(Stream.of(5, 2, 8, null, null, 3, 4, null, null, 1).collect(Collectors.toList()));
-        System.out.println(treeNode.toHierarchyString());
     }
 
 }

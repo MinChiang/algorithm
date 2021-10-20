@@ -54,16 +54,17 @@ public class BinaryTreeInorderTraversal94 {
     public List<Integer> postOrderTraversal(TreeNode node) {
         List<Integer> result = new ArrayList<>();
         Stack<TreeNode> stack = new Stack<>();
-        TreeNode r = null;
-        while (node != null || !stack.isEmpty()) {
+        TreeNode last = null;
+        while (!stack.isEmpty() || node != null) {
             if (node != null) {
                 stack.push(node);
                 node = node.left;
             } else {
                 node = stack.peek();
-                if (node.right == null || node.right == r) {
+                // 这里判断一下对应的右子节点是否为空，还有当前的右侧节点和上次遍历的节点是否一致
+                if (node.right == null || node.right == last) {
                     result.add(node.val);
-                    r = node;
+                    last = node;
                     stack.pop();
                     node = null;
                 } else {

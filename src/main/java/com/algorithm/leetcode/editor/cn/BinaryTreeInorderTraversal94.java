@@ -50,11 +50,37 @@ public class BinaryTreeInorderTraversal94 {
         return result;
     }
 
+    // 后续遍历
+    public List<Integer> postOrderTraversal(TreeNode node) {
+        List<Integer> result = new ArrayList<>();
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode r = null;
+        while (node != null || !stack.isEmpty()) {
+            if (node != null) {
+                stack.push(node);
+                node = node.left;
+            } else {
+                node = stack.peek();
+                if (node.right == null || node.right == r) {
+                    result.add(node.val);
+                    r = node;
+                    stack.pop();
+                    node = null;
+                } else {
+                    node = node.right;
+                }
+            }
+        }
+        return result;
+    }
+
     public static void main(String[] args) {
         BinaryTreeInorderTraversal94 binaryTreeInorderTraversal94 = new BinaryTreeInorderTraversal94();
         TreeNode root = TreeNode.create(IntStream.range(1, 7).boxed().toArray(Integer[]::new));
         // 4 2 5 1 6 3
-        System.out.println(binaryTreeInorderTraversal94.inorderTraversal(root));
+//        System.out.println(binaryTreeInorderTraversal94.inorderTraversal(root));
+        // 4 5 2 6 3 1
+        System.out.println(binaryTreeInorderTraversal94.postOrderTraversal(root));
     }
 
 }

@@ -1,8 +1,6 @@
 package com.algorithm.leetcode.common;
 
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
 import java.util.stream.IntStream;
 
 /**
@@ -136,14 +134,36 @@ public class TreeNode {
      */
     public String toHierarchyString() {
         StringBuilder sb = new StringBuilder();
-        Queue<TreeNode> queue = new LinkedList<>();
-        queue.offer(this);
-        while (!queue.isEmpty()) {
-            int size = queue.size();
-            for (int i = 0; i < size; i++) {
-                TreeNode current = queue.poll();
-                sb.append(current.val);
+        List<List<TreeNode>> lists = this.hierarchyTraversal();
+        for (List<TreeNode> list : lists) {
+            for (TreeNode treeNode : list) {
+                sb.append(treeNode.val);
                 sb.append(' ');
+            }
+            sb.append('\n');
+        }
+        return sb.toString();
+    }
+
+    /**
+     * 层序遍历打印树
+     *
+     * @return 数的列表
+     */
+    public List<List<TreeNode>> hierarchyTraversal() {
+        List<List<TreeNode>> result = new ArrayList<>();
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(this);
+        TreeNode current;
+        List<TreeNode> list;
+        int size;
+        while (!queue.isEmpty()) {
+            list = new ArrayList<>();
+            result.add(list);
+            size = queue.size();
+            for (int i = 0; i < size; i++) {
+                current = queue.poll();
+                list.add(current);
                 if (current.left != null) {
                     queue.offer(current.left);
                 }
@@ -151,9 +171,79 @@ public class TreeNode {
                     queue.offer(current.right);
                 }
             }
-            sb.append('\n');
         }
-        return sb.toString();
+        return result;
+    }
+
+    /**
+     * 前序遍历
+     *
+     * @return 结果
+     */
+    public List<TreeNode> preOrderTraversal() {
+        List<TreeNode> result = new ArrayList<>();
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode current = this;
+        while (!stack.isEmpty() || current != null) {
+            if (current != null) {
+                result.add(current);
+                stack.push(current);
+                current = current.left;
+            } else {
+                current = stack.pop().right;
+            }
+        }
+        return result;
+    }
+
+    /**
+     * 中序遍历
+     *
+     * @return 结果
+     */
+    public List<TreeNode> inOrderTraversal() {
+        List<TreeNode> result = new ArrayList<>();
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode current = this;
+        while (!stack.isEmpty() || current != null) {
+            if (current != null) {
+                stack.push(current);
+                current = current.left;
+            } else {
+                current = stack.pop();
+                result.add(current);
+                current = current.right;
+            }
+        }
+        return result;
+    }
+
+    /**
+     * 后序遍历
+     *
+     * @return 结果
+     */
+    public List<TreeNode> postOrderTraversal() {
+        List<TreeNode> result = new ArrayList<>();
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode current = this;
+        TreeNode last = null;
+        while (!stack.isEmpty() || current != null) {
+            if (current != null) {
+                stack.push(current);
+                current = current.left;
+            } else {
+                current = stack.peek();
+                if (current.right == null || current.right == last) {
+                    last = stack.pop();
+                    result.add(last);
+                    current = null;
+                } else {
+                    current = current.right;
+                }
+            }
+        }
+        return result;
     }
 
     @Override

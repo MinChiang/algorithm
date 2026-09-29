@@ -1,65 +1,65 @@
 class Node[T]:
     def __init__(self, value: T):
-        self.value = value
-        self.next: None | Node[T] = None
+        self.value: T = value
+        self.next: Node[T] | None = None
 
 
 class LinkedList[T]:
     def __init__(self):
         self.head: Node[T] | None = None
+        self.size: int = 0
 
     def add_first(self, value: T) -> None:
-        node = Node(value)
-        node.next = self.head
-        self.head = node
+        new_node = Node(value)
+        new_node.next = self.head
+        self.head = new_node
+        self.size += 1
 
     def add_last(self, value: T) -> None:
-        node = self.head
-        if node is None:
-            self.head = Node(value)
+        new_node = Node(value)
+        if self.head is None:
+            self.head = new_node
+            self.size = 1
             return
+        node = self.head
         while node.next is not None:
             node = node.next
-        node.next = Node(value)
+        node.next = new_node
+        self.size += 1
 
     def get(self, index: int) -> T:
-        if index < 0:
-            raise IndexError("invalid index")
-        count = 0
+        if index < 0 or self.size <= index:
+            raise IndexError()
         node = self.head
-        if node is None:
-            raise IndexError("invalid index")
-        while count != index:
+        for _ in range(index):
             node = node.next
-            count += 1
-            if node is None:
-                raise IndexError("invalid index")
         return node.value
+
+    def reverse(self) -> None:
+        pre = None
+        current = self.head
+
+        while current is not None:
+            next_node = current.next
+            current.next = pre
+            pre = current
+            current = next_node
+        self.head = pre
 
     def remove(self, index: int) -> T:
-        if index < 0:
-            raise IndexError("invalid index")
+        if index < 0 or self.size <= index:
+            raise IndexError()
         if index == 0:
-            if self.head is None:
-                raise IndexError("invalid index")
-            result = self.head.value
+            removed = self.head
             self.head = self.head.next
-            return result
-
-        count = 0
-        node = self.head
-        pre = None
-        while count != index:
-            if node is None:
-                raise IndexError("invalid index")
-            pre = node
-            node = node.next
-            count += 1
-        if node is None:
-            raise IndexError("invalid index")
-        assert pre is not None
-        pre.next = node.next
-        return node.value
+        else:
+            prev = self.head
+            for _ in range(index - 1):
+                prev = prev.next
+            removed = prev.next
+            prev.next = removed.next
+        self.size -= 1
+        return removed.value
 
     def contains(self, value: T) -> bool:
         node = self.head
@@ -69,29 +69,38 @@ class LinkedList[T]:
             node = node.next
         return False
 
-    def reverse(self) -> None:
-        pre = None
-        current = self.head
-        if current is None or current.next is None:
-            return
-        next = current.next
-        while next is not None:
-            current.next = pre
-            pre = current
-            current = next
-            next = current.next
-        current.next = pre
-        self.head = current
-
-    def middle(self) -> T:
-        if self.head is None:
-            raise IndexError()
-        fast, slow = self.head, self.head
-        while fast.next is not None:
+    def middle(self) -> T | None:
+        if self.size == 0:
+            return None
+        slow = self.head
+        fast = self.head
+        while fast is not None and fast.next is not None:
+            fast = fast.next.next
             slow = slow.next
-            fast = fast.next
-            if fast is None:
-                break
-            else:
-                fast = fast.next
         return slow.value
+
+    def __repr__(self) -> str:
+        nodes = []
+        current = self.head
+        while current is not None:
+            nodes.append(repr(current.value))
+            current = current.next
+        return f"LinkedList(size={self.size},nodes=[{','.join(nodes)}])"
+
+    def __str__(self) -> str:
+        return repr(self)
+
+    def __len__(self) -> int:
+        return self.size
+
+    def __contains__(self, value: T) -> bool:
+        return self.contains(value)
+    
+    def __getitem__(self, index: int) -> T:
+        return self.get(index)
+
+    def __iter__(self):
+        current = self.head
+        while current is not None:
+            yield current.value
+            current = current.next

@@ -95,7 +95,7 @@ class LinkedList[T]:
 
     def __contains__(self, value: T) -> bool:
         return self.contains(value)
-    
+
     def __getitem__(self, index: int) -> T:
         return self.get(index)
 

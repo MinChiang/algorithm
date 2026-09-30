@@ -39,4 +39,5 @@ logs/
 node_modules/
 dist/
 test/unit/coverage/
-src/main/java/com/algorithm/leetcode/editor/cn/doc/
+python/.venv/
+python/data_structure/__pycache__/

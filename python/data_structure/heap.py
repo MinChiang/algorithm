@@ -1,9 +1,9 @@
 class Heap[T]:
-    def __init__(self, data = None) -> None:
+    def __init__(self, data=None) -> None:
         if data is None:
             data = []
         self.data = list(data)
-        self._heapify() 
+        self._heapify()
 
     def _heapify(self) -> None:
         index = len(self.data) // 2 - 1
@@ -33,7 +33,7 @@ class Heap[T]:
             self.data[father_index], self.data[index] = current, father
             index = father_index
 
-    def _sift_down(self, index:int) -> None:
+    def _sift_down(self, index: int) -> None:
         while True:
             left = 2 * index + 1
             right = 2 * index + 2

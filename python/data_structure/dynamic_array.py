@@ -64,23 +64,3 @@ class DynamicArray[T]:
             f"DynamicArray(size={self.size}, capacity={self.capacity},data={self.data}"
         )
 
-
-if __name__ == "__main__":
-    arr = DynamicArray(2)
-
-    arr.append(1)
-    arr.append(2)
-    arr.append(3)
-
-    arr.insert(0, 100)
-    arr.insert(2, 200)
-    arr.insert(arr.size, 300)
-
-    arr.remove(0)
-    arr.remove(arr.size - 1)
-
-    print(arr.contains(200))
-
-    arr.reverse()
-
-    print(arr)

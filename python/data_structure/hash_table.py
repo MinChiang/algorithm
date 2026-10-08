@@ -88,10 +88,3 @@ class HashMap[K, V]:
 
     def __contains__(self, value: K) -> bool:
         return self.contains_key(value)
-
-
-if __name__ == '__main__':
-    m = HashMap()
-    m.put("jm", 33)
-    m.put("zyp", 29)
-    print(m)

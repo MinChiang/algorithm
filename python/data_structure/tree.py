@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-import queue
+from collections import deque
 
 
 class TreeNode[T]:
@@ -10,9 +10,9 @@ class TreeNode[T]:
         left: TreeNode[T] | None = None,
         right: TreeNode[T] | None = None,
     ) -> None:
+        self.value = value
         self.left = left
         self.right = right
-        self.value = value
 
 
 class Tree[T]:
@@ -20,21 +20,25 @@ class Tree[T]:
         self.root = root
 
     @classmethod
-    def from_list(cls, data: list[T]) -> Tree[T]:
+    def from_list(cls, data: list[T | None]) -> Tree[T]:
+        if not data:
+            raise IndexError()
+        if data[0] is None:
+            raise IndexError("first data element can not be None")
         node = TreeNode(data[0])
         result = cls(node)
-        q = queue.Queue()
-        q.put(node)
+        q = deque()
+        q.append(node)
         index = 1
-        while node is not None:
-            if index < len(data):
+        while not q:
+            node = q.popleft()
+            if index < len(data) and data[index] is not None:
                 left = TreeNode(data[index])
                 node.left = left
-                q.put(left)
-            if index + 1 < len(data):
+                q.append(left)
+            if index + 1 < len(data) and data[index + 1] is not None:
                 right = TreeNode(data[index + 1])
                 node.right = right
-                q.put(right)
+                q.append(right)
             index += 2
-            node = q.get()
         return result

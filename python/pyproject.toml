@@ -2,3 +2,7 @@
 pythonVersion = "3.12"
 typeCheckingMode = "basic"
 autoImportCompletions = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]

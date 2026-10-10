@@ -39,5 +39,9 @@ logs/
 node_modules/
 dist/
 test/unit/coverage/
-python/.venv/
-python/data_structure/__pycache__/
+**/.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.pyright/

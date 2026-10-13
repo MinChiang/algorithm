@@ -1,0 +1,17 @@
+{
+    "python.testing.pytestArgs": [
+        "tests",
+        "-s"
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true,
+    "python.testing.cwd": "${workspaceFolder}/python",
+    "python.useEnvironmentsExtension": false,
+    "black-formatter.interpreter": [
+        "${workspaceFolder}/python/.venv/Scripts/python.exe"
+    ],
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.black-formatter",
+        "editor.formatOnSave": true
+    }
+}

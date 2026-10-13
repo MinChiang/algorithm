@@ -82,10 +82,11 @@ class Tree[T]:
 
     def pre_order_recursion(self) -> list[T]:
         def _order(result: list[T], node: TreeNode[T] | None):
-            while node:
-                result.append(node.value)
-                _order(result, node.left)
-                _order(result, node.right)
+            if node is None:
+                return
+            result.append(node.value)
+            _order(result, node.left)
+            _order(result, node.right)
 
         result: list[T] = []
         _order(result, self.root)
@@ -93,10 +94,11 @@ class Tree[T]:
 
     def in_order_recursion(self) -> list[T]:
         def _order(result: list[T], node: TreeNode[T] | None):
-            while node:
-                _order(result, node.left)
-                result.append(node.value)
-                _order(result, node.right)
+            if node is None:
+                return
+            _order(result, node.left)
+            result.append(node.value)
+            _order(result, node.right)
 
         result: list[T] = []
         _order(result, self.root)
@@ -104,10 +106,11 @@ class Tree[T]:
 
     def post_order_recursion(self) -> list[T]:
         def _order(result: list[T], node: TreeNode[T] | None):
-            while node:
-                _order(result, node.left)
-                _order(result, node.right)
-                result.append(node.value)
+            if node is None:
+                return
+            _order(result, node.left)
+            _order(result, node.right)
+            result.append(node.value)
 
         result = []
         _order(result, self.root)

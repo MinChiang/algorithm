@@ -1,8 +1,9 @@
-class HeapSort[T]:
+from algorithm.common import SupportCompare
+
+
+class HeapSort[T: SupportCompare]:
     def __init__(self, data: list[T] | None = None) -> None:
-        if data is None:
-            data = []
-        self._data = data
+        self._data = [] if data is None else list(data)
         self._heapify()
 
     def _heapify(self) -> None:

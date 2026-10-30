@@ -11,6 +11,9 @@
             "program": "${file}",
             "python": "${workspaceFolder}/python/.venv/Scripts/python.exe",
             "cwd": "${workspaceFolder}/python",
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}/python"
+            },
             "console": "integratedTerminal"
         },
         {
@@ -24,6 +27,9 @@
             ],
             "python": "${workspaceFolder}/python/.venv/Scripts/python.exe",
             "cwd": "${workspaceFolder}/python",
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}/python"
+            },
             "console": "integratedTerminal"
         }
     ]

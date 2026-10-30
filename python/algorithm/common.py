@@ -1,0 +1,6 @@
+from typing import Protocol, Self
+
+
+class SupportCompare(Protocol):
+    def __gt__(self, other: Self, /) -> bool: ...
+    def __lt__(self, other: Self, /) -> bool: ...
